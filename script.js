@@ -2,7 +2,7 @@
 // 1. Listen for the form submission event
 // 2. Grab the contents of the fields
 // 3. Send a POST request to the Forms endpoint to submit the form data to HubSpot
-
+// Wait until document is loaded
 $(document).ready(function(){
   // On form submit action execute this code
   $("#custom-form").submit(function(event){
@@ -28,8 +28,9 @@ $(document).ready(function(){
         }
       ]
     };
+
     var url = "https://api.hsforms.com/submissions/v3/integration/submit/21334118/876e460d-12e3-4430-b61a-98e9bc54c56f";
-    // var url = "https://webhook.site/d31b760b-650c-4dc9-a42a-e506013da95f";
+
     // Settings for ajax call
     var settings = {
       "url": url,
@@ -39,28 +40,47 @@ $(document).ready(function(){
         "Content-Type": "application/json"
       },
       "data": JSON.stringify(data),
-      // Feedback based on response code
+
+      // Display Feedback based on response code
       statusCode: {
         200: function(response) {
-          console.log(response.inlineMessage)
+          $(".message-header").text("Success");
+          $(".message-body").html(`<p>${response.inlineMessage}<p>`);
+          $("#submit-message").attr("class","message is-success");
+          $("#submit-response").removeAttr("hidden");
+          // console.log(response.inlineMessage);
         },
         400: function(response) {
           var res = response.responseJSON
-          console.log("Status: " + res.status + " ... " +  res.message)
-          console.log("Hubspot correlationId: " + res.correlationId)
-          console.log("Error type: " + res.errors[0].errorType)
-          console.log("Error message: " + res.errors[0].message)
+          $(".message-header").text(res.message);
+
+          $(".message-body").html(`<p>Hubspot Correlation Id: ${res.correlationId}</p>`)
+          $(".message-body").append(`<p>Error Type: ${res.errors[0].errorType}</p>`)
+          $(".message-body").append(`<p>Error Message: ${res.errors[0].message}</p>`)
+
+          $("#submit-message").attr("class","message is-danger");
+          $("#submit-response").removeAttr("hidden");
+
         },
         403: function(xhr) {
-          console.log(response.responseText)
+          $(".message-header").text("Status: 403");
+          $(".message-body").html(`${response.responseText}`);
+
+          $("#submit-message").attr("class","message is-danger");
+          $("#submit-response").removeAttr("hidden");
         },
         404: function(xhr) {
-          console.log(response.responseText)
+          $(".message-header").text("Status: 404");
+          $(".message-body").html(`${response.responseText}`);
+
+          $("#submit-message").attr("class","message is-danger");
+          $("#submit-response").removeAttr("hidden");
         },
       }
     };
+
     // Execute POST request
     $.ajax(settings)
-
+    
   })
 })
