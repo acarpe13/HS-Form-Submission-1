@@ -11,59 +11,42 @@
   <body>
 
     <div id="app">
-      {{ message }}
-    </div>
-
-    <section class="hero is-success">
-      <div class="hero-body">
-        <div class="container has-text-centered">
-            <h1 class="title">
-              Technical Assesment
-            </h1>
-            <h2>Alex Carpenter for Principal Techncial Consultant</h2>
+      <template>
+        <div class="hero is-success">
+          <div class="hero-body">
+            <div class="container has-text-centered">
+                <h1 class="title">
+                  Technical Assesment
+                </h1>
+                <h2>Alex Carpenter for Principal Techncial Consultant</h2>
+              </div>
           </div>
-      </div>
-
-      <div class="hero-foot">
-      <nav class="tabs is-boxed is-fullwidth is-large">
-        <div class="container">
-          <ul>
-            <li class="tab is-active" onclick="openTab(event,'Objective1')">
-              <a>Objective 1</a>
-            </li>
-            <li class="tab" onclick="openTab(event,'Objective2')">
-              <a>Objective 2</a>
-            </li>
-            <li class="tab" onclick="openTab(event,'Bonus')">
-              <a>Bonus Page</a>
-            </li>
-          </ul>
-        </div>
-      </nav>
-      </div>
-    </section>
-
-    <br>
-
-    <div class="container section">
-      <div id="Objective1" class="content-tab">
-        <div class="columns is-mobile is-centered">
-          <div class="column is-half">
-            <contact-form></contact-form>
-            <response-message></response-message>
+          <div class="hero-foot">
           </div>
+          <b-tabs size="is-large" type="is-boxed">
+            <b-tab-item label="Objective 1">
+              <div id="Objective1" class="content-tab">
+                <div class="columns is-mobile is-centered">
+                  <div class="column is-half">
+                    <contact-form></contact-form>
+                    <response-message></response-message>
+                  </div>
+                </div>
+              </div>
+            </b-tab-item>
+            <b-tab-item label="Objective 2">
+              <div id="Objective2" class="content-tab">
+                <div class="columns is-mobile is-centered">
+                  <div class="column is-half">
+                    <contact-form></contact-form>
+                  </div>
+                </div>
+              </div>
+            </b-tab-item>
+            <b-tab-item label="Bonus"> Bonus Page </b-tab-item>
+          </b-tabs>
         </div>
-      </div>
-      <div id="Objective2" class="content-tab" style="display:none">
-        <div class="columns is-mobile is-centered">
-          <div class="column is-half">
-            <contact-form></contact-form>
-          </div>
-        </div>
-      </div>
-      <div id="Bonus" class="content-tab" style="display:none">
-
-      </div>
+      </template>
     </div>
     <!--Add your js code to the script.js file to submit to the HubSpot Forms API-->
 
