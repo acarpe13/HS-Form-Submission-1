@@ -5,6 +5,18 @@
 
 // var url_obj1 = "https://api.hsforms.com/submissions/v3/integration/submit/21334118/876e460d-12e3-4430-b61a-98e9bc54c56f";
 // var url_obj2 = "http://localhost:3000/form/submissions";
+// import Vue from 'vue'
+// import Buefy from 'buefy'
+// import 'buefy/dist/buefy.css'
+// vue.use(Buefy)
+
+var app = new Vue({
+  el: "#app",
+  data: {
+    message: "Hello Vue!"
+  }
+});
+
 
 var params_obj1 = {
   title: "Objective 1",
