@@ -3,10 +3,31 @@
 // 2. Grab the contents of the fields
 // 3. Send a POST request to the Forms endpoint to submit the form data to HubSpot
 
+// var url_obj1 = "https://api.hsforms.com/submissions/v3/integration/submit/21334118/876e460d-12e3-4430-b61a-98e9bc54c56f";
+// var url_obj2 = "http://localhost:3000/form/submissions";
+
+var params_obj1 = {
+  title: "Objective 1",
+  subtitle: "Submit form directly to HS API",
+  url: "https://api.hsforms.com/submissions/v3/integration/submit/21334118/876e460d-12e3-4430-b61a-98e9bc54c56f"
+};
+
+var params_obj2 = {
+  title: "Objective 2",
+  subtitle: "Submit form via Expressjs API",
+  url: "http://localhost:3000/form/submissions"
+};
+
+var form_params = {
+  title: "Start",
+  subtitle: "",
+  url: ""
+};
+
 // Wait until document is loaded
 $(document).ready(function(){
   // On form submit action execute this code
-  $("#to-hs-api").submit(function(event){
+  $("#form-submission").submit(function(event){
     // Ignore default form submit behavior
     event.preventDefault()
     // Construct body of API call
@@ -30,7 +51,7 @@ $(document).ready(function(){
       ]
     };
 
-    var url = "https://api.hsforms.com/submissions/v3/integration/submit/21334118/876e460d-12e3-4430-b61a-98e9bc54c56f";
+    var url = form_params.url;
 
     // Settings for ajax call
     var settings = {
@@ -110,7 +131,7 @@ $(document).ready(function(){
       ]
     };
 
-    var url = "https://webhook.site/d31b760b-650c-4dc9-a42a-e506013da95f";
+    var url = "http://localhost:3000/form/submissions";
 
     // Settings for ajax call
     var settings = {
@@ -182,7 +203,77 @@ function openTab(evt, tabName) {
     tablinks[i].className = tablinks[i].className.replace(" is-active", "");
   }
   // set current content to display on (unhide)
+  console.log(tabName);
+  if(tabName=="Objective1"){
+    form_params = params_obj1;
+  } else if (tabName=="Objective2"){
+    form_params = params_obj2;
+  } else {
+    form_params = {};
+  }
   document.getElementById(tabName).style.display = "block";
   // set current tab to active
   evt.currentTarget.className += " is-active";
 }
+
+// Reusable form
+class ContactForm extends HTMLElement {
+  constructor(){
+    super();
+    this.Title = "";
+    this.SubTitle = "";
+    this.innerHTML = `
+      <form class="box" id="form-submission" method="post">
+        <h1 class="title">${form_params.title}</h1>
+        <h2 class="subtitle" id="form-subtitle"></h2>
+        <div class="field">
+          <label class="label">First Name</label>
+          <div class="control">
+            <input class="input" type="text" placeholder="Alex" name="firstname" id="firstname">
+          </div>
+        </div>
+        <div class="field">
+          <label class="label">Last Name</label>
+          <div class="control">
+            <input class="input" type="text" placeholder="Carpenter *required" name="lastname" id="lastname">
+          </div>
+        </div>
+        <div class="field">
+          <label class="label">Email</label>
+          <div class="control">
+            <input class="input" type="email" placeholder="alex@example.com  *required" name="email" id="email">
+          </div>
+        </div>
+        <button class="button is-primary js-modal-trigger" id="submit" type="submit" data-target="modal-js-example">Submit</button>
+      </form>
+    `;
+  }
+}
+
+class ResponseMessage extends HTMLElement {
+  connectedCallback(){
+    this.innerHTML = `
+      <div id="submit-response" hidden>
+        <article id="submit-message">
+          <div class="message-header">
+          </div>
+          <div class="message-body">
+          </div>
+        </article>
+      </div>
+    `;
+  }
+}
+
+class Other extends HTMLElement {
+  connectedCallback(){
+    this.innerHTML = `
+
+    `;
+  }
+}
+
+
+
+customElements.define('contact-form', ContactForm);
+customElements.define('response-message', ResponseMessage);
