@@ -3,21 +3,6 @@
 // 2. Grab the contents of the fields
 // 3. Send a POST request to the Forms endpoint to submit the form data to HubSpot
 
-// var url_obj1 = "https://api.hsforms.com/submissions/v3/integration/submit/21334118/876e460d-12e3-4430-b61a-98e9bc54c56f";
-// var url_obj2 = "http://localhost:3000/form/submissions";
-// import Vue from 'vue'
-// import Buefy from 'buefy'
-// import 'buefy/dist/buefy.css'
-// vue.use(Buefy)
-
-var app = new Vue({
-  el: "#app",
-  data: {
-    message: "Hello Vue!"
-  }
-});
-
-
 var params_obj1 = {
   title: "Objective 1",
   subtitle: "Submit form directly to HS API",
@@ -228,40 +213,6 @@ function openTab(evt, tabName) {
   evt.currentTarget.className += " is-active";
 }
 
-// Reusable form
-class ContactForm extends HTMLElement {
-  constructor(){
-    super();
-    this.Title = "";
-    this.SubTitle = "";
-    this.innerHTML = `
-      <form class="box" id="form-submission" method="post">
-        <h1 class="title">${form_params.title}</h1>
-        <h2 class="subtitle" id="form-subtitle"></h2>
-        <div class="field">
-          <label class="label">First Name</label>
-          <div class="control">
-            <input class="input" type="text" placeholder="Alex" name="firstname" id="firstname">
-          </div>
-        </div>
-        <div class="field">
-          <label class="label">Last Name</label>
-          <div class="control">
-            <input class="input" type="text" placeholder="Carpenter *required" name="lastname" id="lastname">
-          </div>
-        </div>
-        <div class="field">
-          <label class="label">Email</label>
-          <div class="control">
-            <input class="input" type="email" placeholder="alex@example.com  *required" name="email" id="email">
-          </div>
-        </div>
-        <button class="button is-primary js-modal-trigger" id="submit" type="submit" data-target="modal-js-example">Submit</button>
-      </form>
-    `;
-  }
-}
-
 class ResponseMessage extends HTMLElement {
   connectedCallback(){
     this.innerHTML = `
@@ -287,5 +238,30 @@ class Other extends HTMLElement {
 
 
 
-customElements.define('contact-form', ContactForm);
-customElements.define('response-message', ResponseMessage);
+var app = new Vue({
+  el: '#app',
+  data: {
+    forms: ['Objective1', 'Objective2'],
+    message: 'Hello Vue!',
+    form_params: form_params,
+    form_params1: params_obj1,
+    form_params2: params_obj2,
+    form_data: {
+      firstname: "",
+      lastname: "",
+      email: ""
+    }
+  },
+  methods: {
+    send(form) {
+      console.log(form.url)
+      const loadingComponent = this.$buefy.loading.open({
+          container: this.$refs.form.$el
+      })
+      setTimeout(() => loadingComponent.close(), 3 * 1000)
+    },
+    sending() {
+
+    }
+  }
+})
