@@ -29,7 +29,7 @@ var params_obj1 = {
 var params_obj2 = {
   title: "Objective 2",
   subtitle: "Submit form via Expressjs API",
-  url: "http://localhost:3000/form/submissions"
+  url: process.env.EXPRESS_URL || "http://localhost:3000/form/submissions"
 };
 
 var app = new Vue({
