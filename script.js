@@ -2,11 +2,28 @@
 // 1. Listen for the form submission event
 // 2. Grab the contents of the fields
 // 3. Send a POST request to the Forms endpoint to submit the form data to HubSpot
+// Script to grab HS cookie
+function getCookie(cname) {
+  let name = cname + "=";
+  var decodedCookie = decodeURIComponent(document.cookie);
+  let ca = decodedCookie.split(';');
+  for(let i = 0; i <ca.length; i++) {
+    let c = ca[i];
+    while (c.charAt(0) == ' ') {
+      c = c.substring(1);
+    }
+    if (c.indexOf(name) == 0) {
+      return c.substring(name.length, c.length);
+    }
+  }
+  return "";
+}
 
 var params_obj1 = {
   title: "Objective 1",
   subtitle: "Submit form directly to HS API",
   url: "https://api.hsforms.com/submissions/v3/integration/submit/21334118/876e460d-12e3-4430-b61a-98e9bc54c56f"
+  // url: "https://webhook.site/d31b760b-650c-4dc9-a42a-e506013da95f"
 };
 
 var params_obj2 = {
@@ -39,6 +56,8 @@ var app = new Vue({
   methods: {
     send(form) {
       var url = form.url;
+      var hubspotutk = getCookie("hubspotutk");
+      console.log(hubspotutk);
       var data = {
         "fields": [
           {
@@ -58,9 +77,9 @@ var app = new Vue({
           }
         ],
         "context": {
-          "hutk": ":hutk", // include this parameter and set it to the hubspotutk cookie value to enable cookie tracking on your submission
-          "pageUri": "www.example.com/page",
-          "pageName": "Example page"
+          "hutk": hubspotutk, // include this parameter and set it to the hubspotutk cookie value to enable cookie tracking on your submission
+          "pageUri": "localhost:8080",
+          "pageName": "Technical Assessment"
         }
       };
 
