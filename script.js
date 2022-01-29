@@ -22,16 +22,16 @@ var app = new Vue({
     form_params1: params_obj1,
     form_params2: params_obj2,
     form_data: {
-      firstname: "",
-      lastname: "",
-      email: ""
+      firstname: '',
+      lastname: '',
+      email: ''
     },
     last_response: {},
     response_data: {
-       status: "",
-       statusCode: 666,
-       message: {},
-       class: ""
+       status: '',
+       statusCode: 0,
+       message: '',
+       class: ''
     },
     responseActive: false,
     responseDuration: 2
