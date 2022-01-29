@@ -56,7 +56,12 @@ var app = new Vue({
             "name": "lastname",
             "value": app.form_data.lastname
           }
-        ]
+        ],
+        "context": {
+          "hutk": ":hutk", // include this parameter and set it to the hubspotutk cookie value to enable cookie tracking on your submission
+          "pageUri": "www.example.com/page",
+          "pageName": "Example page"
+        }
       };
 
       // Settings for ajax call
