@@ -7,19 +7,12 @@ var params_obj1 = {
   title: "Objective 1",
   subtitle: "Submit form directly to HS API",
   url: "https://api.hsforms.com/submissions/v3/integration/submit/21334118/876e460d-12e3-4430-b61a-98e9bc54c56f"
-  // url: "https://webhook.site/d31b760b-650c-4dc9-a42a-e506013da95f"
 };
 
 var params_obj2 = {
   title: "Objective 2",
   subtitle: "Submit form via Expressjs API",
   url: "http://localhost:3000/form/submissions"
-};
-
-var form_params = {
-  title: "Start",
-  subtitle: "",
-  url: ""
 };
 
 class ResponseMessage extends HTMLElement {
@@ -37,20 +30,11 @@ class ResponseMessage extends HTMLElement {
   }
 }
 
-class Other extends HTMLElement {
-  connectedCallback(){
-    this.innerHTML = `
-
-    `;
-  }
-}
-
 var app = new Vue({
   el: '#app',
   data: {
     forms: ['Objective1', 'Objective2'],
     message: 'Hello Vue!',
-    form_params: form_params,
     form_params1: params_obj1,
     form_params2: params_obj2,
     form_data: {

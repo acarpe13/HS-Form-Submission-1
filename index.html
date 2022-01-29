@@ -43,7 +43,7 @@
                         </b-field>
                         <b-field label="Email">
                             <b-input v-model="form_data.email" placeholder="email@example.com" type="email"></b-input>
-                        </b-field
+                        </b-field>
                         <b-field>
                           <b-button label="Submit" type="is-primary" @click="send(form_params1,form_data)"/>
                         </b-field>
@@ -58,7 +58,24 @@
               <div id="Objective2" class="content-tab">
                 <div class="columns is-mobile is-centered">
                   <div class="column is-half">
-                    <!-- <contact-form></contact-form> -->
+                    <section>
+                      <form class="box" ref="form">
+                        <h1 class="title has-text-black-bis">{{form_params2.title}}</h1>
+                        <h2 class="subtitle has-text-black-bis">{{form_params2.subtitle}}</h2>
+                        <b-field label="First Name">
+                            <b-input v-model="form_data.firstname" placeholder="Alex" type="text"></b-input>
+                        </b-field>
+                        <b-field label="Last Name">
+                            <b-input v-model="form_data.lastname" placeholder="Carpenter" type="text" minlength="2" validation-message="Last Name Required"></b-input>
+                        </b-field>
+                        <b-field label="Email">
+                            <b-input v-model="form_data.email" placeholder="email@example.com" type="email"></b-input>
+                        </b-field>
+                        <b-field>
+                          <b-button label="Submit" type="is-primary" @click="send(form_params2,form_data)"/>
+                        </b-field>
+                      </form>
+                  </section>
                   </div>
                 </div>
               </div>
