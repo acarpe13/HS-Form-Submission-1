@@ -26,67 +26,83 @@
           </div>
           <div class="hero-foot">
           </div>
-          <b-tabs size="is-large" type="is-boxed">
-            <b-tab-item label="Objective 1">
-              <div id="Objective1" class="content-tab">
-                <div class="columns is-mobile is-centered">
-                  <div class="column is-half">
-                    <section>
-                      <form class="box" ref="form">
-                        <h1 class="title has-text-black-bis">{{form_params1.title}}</h1>
-                        <h2 class="subtitle has-text-black-bis">{{form_params1.subtitle}}</h2>
-                        <b-field label="First Name">
-                            <b-input v-model="form_data.firstname" placeholder="Alex" type="text"></b-input>
-                        </b-field>
-                        <b-field label="Last Name">
-                            <b-input v-model="form_data.lastname" placeholder="Carpenter" type="text" minlength="2" validation-message="Last Name Required"></b-input>
-                        </b-field>
-                        <b-field label="Email">
-                            <b-input v-model="form_data.email" placeholder="email@example.com" type="email"></b-input>
-                        </b-field>
-                        <b-field>
-                          <b-button label="Submit" type="is-primary" @click="send(form_params1,form_data)"/>
-                        </b-field>
-                      </form>
-                  </section>
-                    <!-- <response-message></response-message> -->
-                  </div>
-                </div>
-              </div>
-            </b-tab-item>
-            <b-tab-item label="Objective 2">
-              <div id="Objective2" class="content-tab">
-                <div class="columns is-mobile is-centered">
-                  <div class="column is-half">
-                    <section>
-                      <form class="box" ref="form">
-                        <h1 class="title has-text-black-bis">{{form_params2.title}}</h1>
-                        <h2 class="subtitle has-text-black-bis">{{form_params2.subtitle}}</h2>
-                        <b-field label="First Name">
-                            <b-input v-model="form_data.firstname" placeholder="Alex" type="text"></b-input>
-                        </b-field>
-                        <b-field label="Last Name">
-                            <b-input v-model="form_data.lastname" placeholder="Carpenter" type="text" minlength="2" validation-message="Last Name Required"></b-input>
-                        </b-field>
-                        <b-field label="Email">
-                            <b-input v-model="form_data.email" placeholder="email@example.com" type="email"></b-input>
-                        </b-field>
-                        <b-field>
-                          <b-button label="Submit" type="is-primary" @click="send(form_params2,form_data)"/>
-                        </b-field>
-                      </form>
-                  </section>
-                  </div>
-                </div>
-              </div>
-            </b-tab-item>
-            <b-tab-item label="Bonus"> Bonus Page </b-tab-item>
-          </b-tabs>
         </div>
-        <!-- <contact-form v-bind="message"></contact-form> -->
+        <b-tabs size="is-large" type="is-boxed">
+          <b-tab-item label="Objective 1">
+            <div id="Objective1" class="content-tab">
+              <div class="columns is-mobile is-centered">
+                <div class="column is-half">
+                  <section>
+                    <form class="box" ref="form">
+                      <h1 class="title has-text-black-bis">{{form_params1.title}}</h1>
+                      <h2 class="subtitle has-text-black-bis">{{form_params1.subtitle}}</h2>
+                      <b-field label="First Name">
+                          <b-input v-model="form_data.firstname" placeholder="Alex" type="text"></b-input>
+                      </b-field>
+                      <b-field label="Last Name">
+                          <b-input v-model="form_data.lastname" placeholder="Carpenter" type="text" minlength="2" validation-message="Last Name Required"></b-input>
+                      </b-field>
+                      <b-field label="Email">
+                          <b-input v-model="form_data.email" placeholder="email@example.com" type="email"></b-input>
+                      </b-field>
+                      <b-field>
+                        <b-button label="Submit" type="is-primary" @click="send(form_params1)"/>
+                      </b-field>
+                    </form>
+                    <section>
+                      <b-message
+                        auto-close
+                        :title="response_data.status"
+                        :type="response_data.class"
+                        v-model="responseActive">
+                        <p v-html="response_data.message"></p>test
+                      </b-message>
+                    </section>
+                </section>
+
+                </div>
+              </div>
+            </div>
+          </b-tab-item>
+          <b-tab-item label="Objective 2">
+            <div id="Objective2" class="content-tab">
+              <div class="columns is-mobile is-centered">
+                <div class="column is-half">
+                  <section>
+                    <form class="box" ref="form">
+                      <h1 class="title has-text-black-bis">{{form_params2.title}}</h1>
+                      <h2 class="subtitle has-text-black-bis">{{form_params2.subtitle}}</h2>
+                      <b-field label="First Name">
+                          <b-input v-model="form_data.firstname" placeholder="Alex" type="text"></b-input>
+                      </b-field>
+                      <b-field label="Last Name">
+                          <b-input v-model="form_data.lastname" placeholder="Carpenter" type="text" minlength="2" validation-message="Last Name Required"></b-input>
+                      </b-field>
+                      <b-field label="Email">
+                          <b-input v-model="form_data.email" placeholder="email@example.com" type="email"></b-input>
+                      </b-field>
+                      <b-field>
+                        <b-button label="Submit" type="is-primary" @click="send(form_params2,form_data)"/>
+                      </b-field>
+                    </form>
+                    <section>
+                      <b-message
+                        auto-close
+                        :title="response_data.status"
+                        :type="response_data.class"
+                        v-model="responseActive">
+                        <p v-html="response_data.message"></p>test
+                      </b-message>
+                    </section>
+                </section>
+                </div>
+              </div>
+            </div>
+          </b-tab-item>
+          <b-tab-item label="Bonus"> Bonus Page </b-tab-item>
+        </b-tabs>
       </template>
     </div>
-    <!--Add your js code to the script.js file to submit to the HubSpot Forms API-->
 
     <script src="https://unpkg.com/vue"></script>
     <script src="https://unpkg.com/buefy/dist/buefy.min.js"></script>

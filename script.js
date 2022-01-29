@@ -15,53 +15,46 @@ var params_obj2 = {
   url: "http://localhost:3000/form/submissions"
 };
 
-class ResponseMessage extends HTMLElement {
-  connectedCallback(){
-    this.innerHTML = `
-      <div id="submit-response" hidden>
-        <article id="submit-message">
-          <div class="message-header">
-          </div>
-          <div class="message-body">
-          </div>
-        </article>
-      </div>
-    `;
-  }
-}
-
 var app = new Vue({
   el: '#app',
   data: {
     forms: ['Objective1', 'Objective2'],
-    message: 'Hello Vue!',
     form_params1: params_obj1,
     form_params2: params_obj2,
     form_data: {
       firstname: "",
       lastname: "",
       email: ""
-    }
+    },
+    last_response: {},
+    response_data: {
+       status: "",
+       statusCode: 666,
+       message: {},
+       class: ""
+    },
+    responseActive: false,
+    responseDuration: 2
   },
   methods: {
-    send(form,form_data) {
+    send(form) {
       var url = form.url;
       var data = {
         "fields": [
           {
             "objectTypeId": "0-1",
             "name": "email",
-            "value": form_data.email
+            "value": app.form_data.email
           },
           {
             "objectTypeId": "0-1",
             "name": "firstname",
-            "value": form_data.firstname
+            "value": app.form_data.firstname
           },
           {
             "objectTypeId": "0-1",
             "name": "lastname",
-            "value": form_data.lastname
+            "value": app.form_data.lastname
           }
         ]
       };
@@ -79,39 +72,35 @@ var app = new Vue({
         // Display Feedback based on response code
         statusCode: {
           200: function(response) {
-            $(".message-header").text("Success");
-            $(".message-body").html(`<p>${response.inlineMessage}<p>`);
-            $("#submit-message").attr("class","message is-success");
-            $("#submit-response").removeAttr("hidden");
-            // console.log(response.inlineMessage);
+            // $(".message-header").text("Success");
+            app.response_data.statusCode = 200;
+            app.response_data.status = "Success";
+            app.response_data.message = response.inlineMessage;
+            app.response_data.class = "is-success";
           },
           400: function(response) {
-            var res = response.responseJSON
-            $(".message-header").text(res.message);
-
-            $(".message-body").html(`<p>Hubspot Correlation Id: ${res.correlationId}</p>`)
-            $(".message-body").append(`<p>Error Type: ${res.errors[0].errorType}</p>`)
-            $(".message-body").append(`<p>Error Message: ${res.errors[0].message}</p>`)
-
-            $("#submit-message").attr("class","message is-danger");
-            $("#submit-response").removeAttr("hidden");
-
+            var res = response.responseJSON;
+            app.response_data.statusCode = 400;
+            app.response_data.status = "Bad Request";
+            app.response_data.message = `Error Type: ${res.errors[0].errorType}<br>
+              Error Message: ${res.errors[0].message}<br>
+              Hubspot Correlation Id: ${res.correlationId}<br>
+            `;
+            app.response_data.class = "is-danger";
           },
-          403: function(xhr) {
-            $(".message-header").text("Status: 403");
-            $(".message-body").html(`${response.responseText}`);
-
-            $("#submit-message").attr("class","message is-danger");
-            $("#submit-response").removeAttr("hidden");
+          403: function(response) {
+            app.response_data.statusCode = 403;
+            app.response_data.status = "Unauthorized";
+            app.response_data.message = "response.responseText"
+            app.response_data.class = "is-danger";
           },
-          404: function(xhr) {
-            $(".message-header").text("Status: 404");
-            $(".message-body").html(`${response.responseText}`);
-
-            $("#submit-message").attr("class","message is-danger");
-            $("#submit-response").removeAttr("hidden");
+          404: function(response) {
+            app.response_data.statusCode = 404;
+            app.response_data.status = "Not Found";
+            app.response_data.message = "response.responseText"
+            app.response_data.class = "is-danger";
           },
-        }
+        },
       };
 
       // Loading spinner
@@ -119,10 +108,11 @@ var app = new Vue({
           container: this.$refs.form.$el
       })
       setTimeout(() => loadingComponent.close(), 5 * 1000)
-
       // Execute POST request
       $.ajax(settings).always(function(){
-        loadingComponent.close()
+        loadingComponent.close();
+        app.responseActive = true;
+        // setTimeout(() => app.responseActive = false, 3 * 1000)
       })
     },
     sending() {
