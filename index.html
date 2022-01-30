@@ -16,11 +16,27 @@
         <div class="hero is-success">
           <div class="hero-body">
             <div class="container has-text-centered">
-                <h1 class="title">
+                <div class="title">
                   Technical Assesment
-                </h1>
-                <h2>Alex Carpenter for Principal Techncial Consultant</h2>
-                <h2>January 2022</h2>
+                </div>
+                <div class="subtitle">Alex Carpenter for Principal Techncial Consultant<br>
+                January 2022</div>
+                <br>
+                <div class="title is-4">Objective 1 Tasks:</div>
+                <div class="subtitle is-6">Submit form to Hubspot Forms API using Javascript HTTP request<br>
+                Libraries Used: Vuejs, Buefy/Bulmajs, Ajax</div>
+                <br>
+
+                <div class="title is-4">Objective 2 Tasks:</div>
+                <div class="subtitle is-6">Create lightweight API to accept form submissions and route data to Hubspot<br>
+                Libraries Used: Expressjs, Axios</div>
+
+                <br>
+
+                <div class="title is-4">Extras: </div>
+                <div class="subtitle is-6">Submit UTK token when available<br>
+                Display form submission entries using Contact List API<br>
+                Error Handling messages</div>
               </div>
           </div>
           <div class="hero-foot">
@@ -30,7 +46,7 @@
 
 
 <!-- Tab navigation using Buefy (a vue library to implement bulmajs with added magic) -->
-<div class="hero is-light">
+        <div class="hero is-light">
   <b-tabs expanded size="is-large" type="is-toggle" position="is-centered">
     <b-tab-item label="Objective 1">
         <div class="columns is-mobile is-centered">
@@ -44,10 +60,10 @@
                     <b-input v-model="form_data.firstname" placeholder="Alex" type="text"></b-input>
                 </b-field>
                 <b-field label="Last Name">
-                    <b-input v-model="form_data.lastname" placeholder="Carpenter" type="text" minlength="2" validation-message="Last Name Required"></b-input>
+                    <b-input v-model="form_data.lastname" placeholder="Carpenter *Required" type="text" minlength="2" validation-message="Last Name Required"></b-input>
                 </b-field>
                 <b-field label="Email">
-                    <b-input v-model="form_data.email" placeholder="email@example.com" type="email"></b-input>
+                    <b-input v-model="form_data.email" placeholder="email@example.com *Required" type="email"></b-input>
                 </b-field>
                 <b-field>
                   <b-button label="Submit" type="is-primary is-fullwidth" @click="send(form_params1)"/>
@@ -67,7 +83,7 @@
 
           </div>
         </div>
-    </b-tab-item>
+      </b-tab-item>
     <b-tab-item label="Objective 2">
         <div class="columns is-mobile is-centered">
           <div class="column is-half">
@@ -102,23 +118,27 @@
           </div>
         </div>
     </b-tab-item>
-    <!-- Bonus page, will turn into form dashboard if time permits -->
-    <b-tab-item label="Dashboard">
-      <!-- //////// -->
-      <div class="title">
-        Contact Lists
-      </div>
-      <!-- //////// -->
-      <contact-list
-        v-for="list in lists"
-        v-bind:list="list"
-      ></<contact-list>
 
-    </b-tab-item>
+    <b-tab-item label="Submission Dashboard">
+    <div class="title">
+      Contact Lists
+    </div>
+    <div class="subtitle">
+      The following data is fetched using the Contact Lists API
+      <br>
+      This gives the ability to see all unique form submissions in one place
+    </div>
+
+    <contact-list
+      v-for="list in lists"
+      v-bind:list="list"
+    ></<contact-list>
+
+  </b-tab-item>
   </b-tabs>
 </div>
-      </template>
-    </div>
+  </template>
+</div>
 
     <!-- Import necessary libraries -->
     <script src="https://unpkg.com/vue"></script>

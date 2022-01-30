@@ -30,14 +30,14 @@ function getCookie(cname) {
 // This would support principles that the f/e should be dumb and all import data should be passed from the b/e
 var params_obj1 = {
   title: "Objective 1",
-  subtitle: "Submit form directly to HS API",
+  subtitle: "Submits form directly to HS API",
   url: "https://api.hsforms.com/submissions/v3/integration/submit/21334118/876e460d-12e3-4430-b61a-98e9bc54c56f"
   // url: "https://webhook.site/d31b760b-650c-4dc9-a42a-e506013da95f"
 };
 
 var params_obj2 = {
   title: "Objective 2",
-  subtitle: "Submit form via Expressjs API",
+  subtitle: "Submits form via Expressjs API",
   url: express_url + "/form/submissions"
 };
 
@@ -93,7 +93,7 @@ var app = new Vue({
         ],
         "context": {}
       };
-      // if utk token present push it to data fields array
+      // If utk token present push it to context array
       // This prevents errors when privacy settings are active
       if(hubspotutk != ""){
         data.context = {
@@ -178,6 +178,7 @@ var app = new Vue({
   },
 })
 
+//Componenet to display information about contact lists
 Vue.component('contact-list', {
   props: ['list'],
   data: function () {
@@ -225,6 +226,7 @@ Vue.component('contact-list', {
   `
 })
 
+//Componenet to display table of form submissions
 Vue.component('table-component', {
   props: ['list'],
   data: function () {
