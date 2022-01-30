@@ -90,16 +90,17 @@ var app = new Vue({
             "name": "lastname",
             "value": app.form_data.lastname
           }
-        ]
+        ],
+        "context": {}
       };
       // if utk token present push it to data fields array
       // This prevents errors when privacy settings are active
       if(hubspotutk != ""){
-        data.fields.push({
-          hutk: hubspotutk, // include this parameter and set it to the hubspotutk cookie value to enable cookie tracking on your submission
-          pageUri: "https://hs-form-submission-1.acarpe13.repl.co/",
-          pageName: "Technical Assessment"
-        });
+        data.context = {
+          "hutk": hubspotutk, // include this parameter and set it to the hubspotutk cookie value to enable cookie tracking on your submission
+          "pageUri": "https://hs-form-submission-1.acarpe13.repl.co/",
+          "pageName": "Technical Assessment"
+        };
       }
 
       // Settings for ajax call
