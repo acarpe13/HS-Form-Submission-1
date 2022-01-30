@@ -3,6 +3,10 @@
 // 2. Grab the contents of the fields
 // 3. Send a POST request to the Forms endpoint to submit the form data to HubSpot
 // Script to grab HS cookie
+
+// const express_url = "http://localhost:3000/form/submissions"
+const express_url = "https://hs-form-submission-objective-2.acarpe13.repl.co/"
+
 function getCookie(cname) {
   let name = cname + "=";
   var decodedCookie = decodeURIComponent(document.cookie);
@@ -29,7 +33,7 @@ var params_obj1 = {
 var params_obj2 = {
   title: "Objective 2",
   subtitle: "Submit form via Expressjs API",
-  url: process.env.EXPRESS_URL || "http://localhost:3000/form/submissions"
+  url: express_url
 };
 
 var app = new Vue({
