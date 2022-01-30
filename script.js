@@ -5,7 +5,7 @@
 // Script to grab HS cookie
 
 // const express_url = "http://localhost:3000/form/submissions"
-const express_url = "https://hs-form-submission-objective-2.acarpe13.repl.co/"
+const express_url = "https://hs-form-submission-objective-2.acarpe13.repl.co/form/submissions"
 
 function getCookie(cname) {
   let name = cname + "=";
