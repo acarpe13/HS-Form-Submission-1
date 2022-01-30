@@ -9,10 +9,8 @@
   </head>
 
   <body>
-    <!-- <div id="counter">
-      Counter: {{ counter }}
-    </div> -->
 
+<!-- Start instance of vue app -->
     <div id="app">
       <template>
         <div class="hero is-success">
@@ -27,12 +25,14 @@
           <div class="hero-foot">
           </div>
         </div>
+
+<!-- Tab navigation using Buefy (a vue library to implement bulmajs with added magic) -->
         <b-tabs size="is-large" type="is-boxed" position="is-centered">
           <b-tab-item label="Objective 1">
-            <div class="content-tab">
               <div class="columns is-mobile is-centered">
                 <div class="column is-half">
                   <section>
+                    <!-- From for objective 1 -->
                     <form class="box" ref="form">
                       <h1 class="title has-text-black-bis">{{form_params1.title}}</h1>
                       <h2 class="subtitle has-text-black-bis">{{form_params1.subtitle}}</h2>
@@ -50,6 +50,7 @@
                       </b-field>
                     </form>
                     <section>
+                      <!-- Response message -->
                       <b-message
                         auto-close
                         :title="response_data.status"
@@ -62,13 +63,13 @@
 
                 </div>
               </div>
-            </div>
           </b-tab-item>
           <b-tab-item label="Objective 2">
             <div class="content-tab">
               <div class="columns is-mobile is-centered">
                 <div class="column is-half">
                   <section>
+                    <!-- From for objective 2 -->
                     <form class="box" ref="form">
                       <h1 class="title has-text-black-bis">{{form_params2.title}}</h1>
                       <h2 class="subtitle has-text-black-bis">{{form_params2.subtitle}}</h2>
@@ -99,15 +100,18 @@
               </div>
             </div>
           </b-tab-item>
+          <!-- Bonus page, will turn into form dashboard if time permits -->
           <b-tab-item label="Bonus"> Bonus Page </b-tab-item>
         </b-tabs>
       </template>
     </div>
 
+    <!-- Import necessary libraries -->
     <script src="https://unpkg.com/vue"></script>
     <script src="https://unpkg.com/buefy/dist/buefy.min.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- HS UTK script -->
     <script type="text/javascript" id="hs-script-loader" async defer src="//js.hs-scripts.com/21334118.js"></script>
     <script src="script.js"></script>
   </body>

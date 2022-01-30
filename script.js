@@ -7,6 +7,8 @@
 // const express_url = "http://localhost:3000/form/submissions"
 const express_url = "https://hs-form-submission-objective-2.acarpe13.repl.co/form/submissions"
 
+// Function to fetch hubspotutk cookie
+// Documentation mentions _hsq cookie but the array was empty. This could be either a new unfinished feature or mistake in docs
 function getCookie(cname) {
   let name = cname + "=";
   var decodedCookie = decodeURIComponent(document.cookie);
@@ -23,6 +25,9 @@ function getCookie(cname) {
   return "";
 }
 
+// Params for both forms
+// may change to let b/e serve form param data as array
+// This would support principles that the f/e should be dumb and all import data should be passed from the b/e
 var params_obj1 = {
   title: "Objective 1",
   subtitle: "Submit form directly to HS API",
@@ -36,18 +41,20 @@ var params_obj2 = {
   url: express_url
 };
 
+// instance of vue app
 var app = new Vue({
   el: '#app',
   data: {
-    forms: ['Objective1', 'Objective2'],
     form_params1: params_obj1,
     form_params2: params_obj2,
+    // Placeholder for form data
+    // Value bindings are shared between forms for ease of data entry
     form_data: {
       firstname: '',
       lastname: '',
       email: ''
     },
-    last_response: {},
+    // Var to hold response from hs/express api
     response_data: {
        status: '',
        statusCode: 0,
@@ -58,9 +65,12 @@ var app = new Vue({
     responseDuration: 2
   },
   methods: {
+    // function to submit form
     send(form) {
       var url = form.url;
+      // fetch utk token
       var hubspotutk = getCookie("hubspotutk");
+      // api body data
       var data = {
         "fields": [
           {
@@ -80,7 +90,8 @@ var app = new Vue({
           }
         ]
       };
-
+      // if utk token present push it to data fields array
+      // This prevents errors when privacy settings are active
       if(hubspotutk != ""){
         data.fields.push({
           hutk: hubspotutk, // include this parameter and set it to the hubspotutk cookie value to enable cookie tracking on your submission
@@ -102,7 +113,6 @@ var app = new Vue({
         // Display Feedback based on response code
         statusCode: {
           200: function(response) {
-            // $(".message-header").text("Success");
             app.response_data.statusCode = 200;
             app.response_data.status = "Success";
             app.response_data.message = response.inlineMessage;
@@ -141,11 +151,9 @@ var app = new Vue({
       // Execute POST request
       $.ajax(settings).always(function(){
         loadingComponent.close();
+        // trigger response message popup
         app.responseActive = true;
-        // setTimeout(() => app.responseActive = false, 3 * 1000)
       })
-    },
-    sending() {
     }
   }
 })
