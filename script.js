@@ -61,7 +61,6 @@ var app = new Vue({
     send(form) {
       var url = form.url;
       var hubspotutk = getCookie("hubspotutk");
-      console.log(hubspotutk);
       var data = {
         "fields": [
           {
@@ -82,7 +81,7 @@ var app = new Vue({
         ]
       };
 
-      if(hubspotutk){
+      if(hubspotutk != ""){
         data.fields.push({
           hutk: hubspotutk, // include this parameter and set it to the hubspotutk cookie value to enable cookie tracking on your submission
           pageUri: "https://hs-form-submission-1.acarpe13.repl.co/",
