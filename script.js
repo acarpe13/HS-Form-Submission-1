@@ -79,13 +79,16 @@ var app = new Vue({
             "name": "lastname",
             "value": app.form_data.lastname
           }
-        ],
-        "context": {
-          "hutk": hubspotutk, // include this parameter and set it to the hubspotutk cookie value to enable cookie tracking on your submission
-          "pageUri": "localhost:8080",
-          "pageName": "Technical Assessment"
-        }
+        ]
       };
+
+      if(hubspotutk){
+        data.fields.push({
+          hutk: hubspotutk, // include this parameter and set it to the hubspotutk cookie value to enable cookie tracking on your submission
+          pageUri: "https://hs-form-submission-1.acarpe13.repl.co/",
+          pageName: "Technical Assessment"
+        });
+      }
 
       // Settings for ajax call
       var settings = {
