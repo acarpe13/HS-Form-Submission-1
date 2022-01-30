@@ -251,7 +251,7 @@ Vue.component('table-component', {
         },
         {
             field: 'properties.hs_marketable_reason_id.value',
-            label: 'Marketing Source ID'
+            label: 'Original source id'
         }
       ]
     }
