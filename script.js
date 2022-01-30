@@ -5,7 +5,7 @@
 // Script to grab HS cookie
 
 // const express_url = "http://localhost:3000/form/submissions"
-const express_url = "https://hs-form-submission-objective-2.acarpe13.repl.co/form/submissions"
+const express_url = "https://hs-form-submission-objective-2.acarpe13.repl.co"
 
 // Function to fetch hubspotutk cookie
 // Documentation mentions _hsq cookie but the array was empty. This could be either a new unfinished feature or mistake in docs
@@ -38,7 +38,7 @@ var params_obj1 = {
 var params_obj2 = {
   title: "Objective 2",
   subtitle: "Submit form via Expressjs API",
-  url: express_url
+  url: express_url + "/form/submissions"
 };
 
 // instance of vue app
@@ -62,7 +62,9 @@ var app = new Vue({
        class: ''
     },
     responseActive: false,
-    responseDuration: 2
+    responseDuration: 2,
+    // Contact List Data
+    lists: {}
   },
   methods: {
     // function to submit form
@@ -154,6 +156,124 @@ var app = new Vue({
         // trigger response message popup
         app.responseActive = true;
       })
+    },
+    fetchLists() {
+      var xhr = new XMLHttpRequest();
+      var self = this;
+      xhr.open("GET", express_url + "/contactlists");
+      xhr.onload = function() {
+        self.lists = JSON.parse(xhr.responseText);
+        for(var list of self.lists) {
+          var id = list.listId;
+          // self.fetchList(list);
+        }
+      };
+      xhr.send();
     }
-  }
+  },
+  created: function() {
+    this.fetchLists()
+    // this.fetchList(),
+  },
+})
+
+Vue.component('contact-list', {
+  props: ['list'],
+  data: function () {
+    return {
+
+      columns: [
+        {
+            field: 'vid',
+            label: 'ID',
+        },
+        {
+            field: 'addedAt',
+            label: 'Name'
+        }
+      ]
+    }
+  },
+  template: `
+  <nav class="panel">
+    <p class="panel-heading">
+      {{list.name}}
+    </p>
+
+    <b-tabs class="is-small" type="is-toggle">
+      <b-tab-item label="Table">
+        <table-component
+          v-bind:list="list">
+        ></table-component>
+      </b-tab-item>
+      <b-tab-item label="Details" class="panel-block">
+        <section>
+          <a class="panel-block is-active">
+            List Id: {{list.listId}}
+          </a>
+          <a class="panel-block is-active">
+            Contact Count: {{list.metaData.size}}
+          </a>
+          <a class="panel-block">
+            List Type: {{list.listType}}
+          </a>
+        </section>
+      </b-tab-item>
+    </b-tabs>
+  </nav>
+  `
+})
+
+Vue.component('table-component', {
+  props: ['list'],
+  data: function () {
+    return {
+      contacts: [],
+      columns: [
+        {
+            field: 'properties.firstname.value',
+            label: 'First Name',
+        },
+        {
+            field: 'properties.lastname.value',
+            label: 'Last Name',
+        },
+        {
+            field: 'properties.email.value',
+            label: 'Email',
+        },
+        {
+            field: 'properties.lifecyclestage.value',
+            label: 'LifeCycleStage',
+        },
+        {
+            field: 'properties.hs_marketable_reason_id.value',
+            label: 'Marketing Source ID'
+        }
+      ]
+    }
+  },
+  methods: {
+    fetchList() {
+      var self = this;
+      var xhr = new XMLHttpRequest();
+      xhr.open("GET", express_url + "/contactlist/" + self.list.listId);
+      xhr.onload = function() {
+        self.contacts = JSON.parse(xhr.responseText);
+        console.log(self.contacts)
+      };
+      xhr.send();
+    }
+  },
+  created () {
+    this.fetchList()
+  },
+  template: `
+        <div>
+          <b-table
+            :data="contacts"
+            :columns="columns">
+          </b-table>
+        </div>
+  `
 })

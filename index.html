@@ -20,89 +20,103 @@
                   Technical Assesment
                 </h1>
                 <h2>Alex Carpenter for Principal Techncial Consultant</h2>
+                <h2>January 2022</h2>
               </div>
           </div>
           <div class="hero-foot">
           </div>
+
         </div>
 
-<!-- Tab navigation using Buefy (a vue library to implement bulmajs with added magic) -->
-        <b-tabs size="is-large" type="is-boxed" position="is-centered">
-          <b-tab-item label="Objective 1">
-              <div class="columns is-mobile is-centered">
-                <div class="column is-half">
-                  <section>
-                    <!-- From for objective 1 -->
-                    <form class="box" ref="form">
-                      <h1 class="title has-text-black-bis">{{form_params1.title}}</h1>
-                      <h2 class="subtitle has-text-black-bis">{{form_params1.subtitle}}</h2>
-                      <b-field label="First Name">
-                          <b-input v-model="form_data.firstname" placeholder="Alex" type="text"></b-input>
-                      </b-field>
-                      <b-field label="Last Name">
-                          <b-input v-model="form_data.lastname" placeholder="Carpenter" type="text" minlength="2" validation-message="Last Name Required"></b-input>
-                      </b-field>
-                      <b-field label="Email">
-                          <b-input v-model="form_data.email" placeholder="email@example.com" type="email"></b-input>
-                      </b-field>
-                      <b-field>
-                        <b-button label="Submit" type="is-primary" @click="send(form_params1)"/>
-                      </b-field>
-                    </form>
-                    <section>
-                      <!-- Response message -->
-                      <b-message
-                        auto-close
-                        :title="response_data.status"
-                        :type="response_data.class"
-                        v-model="responseActive">
-                        <p v-html="response_data.message"></p>test
-                      </b-message>
-                    </section>
-                </section>
 
-                </div>
-              </div>
-          </b-tab-item>
-          <b-tab-item label="Objective 2">
-            <div class="content-tab">
-              <div class="columns is-mobile is-centered">
-                <div class="column is-half">
-                  <section>
-                    <!-- From for objective 2 -->
-                    <form class="box" ref="form">
-                      <h1 class="title has-text-black-bis">{{form_params2.title}}</h1>
-                      <h2 class="subtitle has-text-black-bis">{{form_params2.subtitle}}</h2>
-                      <b-field label="First Name">
-                          <b-input v-model="form_data.firstname" placeholder="Alex" type="text"></b-input>
-                      </b-field>
-                      <b-field label="Last Name">
-                          <b-input v-model="form_data.lastname" placeholder="Carpenter" type="text" minlength="2" validation-message="Last Name Required"></b-input>
-                      </b-field>
-                      <b-field label="Email">
-                          <b-input v-model="form_data.email" placeholder="email@example.com" type="email"></b-input>
-                      </b-field>
-                      <b-field>
-                        <b-button label="Submit" type="is-primary" @click="send(form_params2,form_data)"/>
-                      </b-field>
-                    </form>
-                    <section>
-                      <b-message
-                        auto-close
-                        :title="response_data.status"
-                        :type="response_data.class"
-                        v-model="responseActive">
-                        <p v-html="response_data.message"></p>test
-                      </b-message>
-                    </section>
-                </section>
-                </div>
-              </div>
-            </div>
-          </b-tab-item>
-          <!-- Bonus page, will turn into form dashboard if time permits -->
-          <b-tab-item label="Bonus"> Bonus Page </b-tab-item>
-        </b-tabs>
+<!-- Tab navigation using Buefy (a vue library to implement bulmajs with added magic) -->
+<div class="hero is-light">
+  <b-tabs expanded size="is-large" type="is-toggle" position="is-centered">
+    <b-tab-item label="Objective 1">
+        <div class="columns is-mobile is-centered">
+          <div class="column is-half">
+            <section>
+              <!-- From for objective 1 -->
+              <form class="box" ref="form">
+                <h1 class="title has-text-black-bis">{{form_params1.title}}</h1>
+                <h2 class="subtitle has-text-black-bis">{{form_params1.subtitle}}</h2>
+                <b-field label="First Name">
+                    <b-input v-model="form_data.firstname" placeholder="Alex" type="text"></b-input>
+                </b-field>
+                <b-field label="Last Name">
+                    <b-input v-model="form_data.lastname" placeholder="Carpenter" type="text" minlength="2" validation-message="Last Name Required"></b-input>
+                </b-field>
+                <b-field label="Email">
+                    <b-input v-model="form_data.email" placeholder="email@example.com" type="email"></b-input>
+                </b-field>
+                <b-field>
+                  <b-button label="Submit" type="is-primary is-fullwidth" @click="send(form_params1)"/>
+                </b-field>
+              </form>
+              <section>
+                <!-- Response message -->
+                <b-message
+                  auto-close
+                  :title="response_data.status"
+                  :type="response_data.class"
+                  v-model="responseActive">
+                  <p v-html="response_data.message"></p>test
+                </b-message>
+              </section>
+          </section>
+
+          </div>
+        </div>
+    </b-tab-item>
+    <b-tab-item label="Objective 2">
+        <div class="columns is-mobile is-centered">
+          <div class="column is-half">
+            <section>
+              <!-- From for objective 2 -->
+              <form class="box" ref="form">
+                <h1 class="title has-text-black-bis">{{form_params2.title}}</h1>
+                <h2 class="subtitle has-text-black-bis">{{form_params2.subtitle}}</h2>
+                <b-field label="First Name">
+                    <b-input v-model="form_data.firstname" placeholder="Alex" type="text"></b-input>
+                </b-field>
+                <b-field label="Last Name">
+                    <b-input v-model="form_data.lastname" placeholder="Carpenter" type="text" minlength="2" validation-message="Last Name Required"></b-input>
+                </b-field>
+                <b-field label="Email">
+                    <b-input v-model="form_data.email" placeholder="email@example.com" type="email"></b-input>
+                </b-field>
+                <b-field>
+                  <b-button label="Submit" type="is-primary is-fullwidth" @click="send(form_params2,form_data)"/>
+                </b-field>
+              </form>
+              <section>
+                <b-message
+                  auto-close
+                  :title="response_data.status"
+                  :type="response_data.class"
+                  v-model="responseActive">
+                  <p v-html="response_data.message"></p>test
+                </b-message>
+              </section>
+          </section>
+          </div>
+        </div>
+    </b-tab-item>
+    <!-- Bonus page, will turn into form dashboard if time permits -->
+    <b-tab-item label="Dashboard">
+      <!-- //////// -->
+      <div class="title">
+        Contact Lists
+      </div>
+      <!-- //////// -->
+      <contact-list
+        v-for="list in lists"
+        v-bind:list="list"
+      ></<contact-list>
+
+    </b-tab-item>
+  </b-tabs>
+</div>
       </template>
     </div>
 
